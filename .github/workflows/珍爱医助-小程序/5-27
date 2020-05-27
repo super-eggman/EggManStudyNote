@@ -1,0 +1,93 @@
+//前端增加 调用小程序接口获取当前用户定位信息
+    //小程序接口代码封装
+    const func = {
+    //获取用户当前定位 isHighAccuracy开启高精度定位
+    GetLocation(isHighAccuracy){
+        let locationINFO = {};
+        return new Promise((resolve,reject)=>{
+            wx.getLocation({
+                type: 'wgs84',
+                isHighAccuracy:isHighAccuracy,
+                success:(res)=>{
+                    console.log('成功获取用户定位',res);
+                    locationINFO = res;
+                    resolve(res)
+                },
+                fail:(res)=>{
+                    reject()
+                }
+            })
+        })
+    },
+
+//后端增加 获取前端通过接口传入数据 写入新建数据库表 user_Locations
+    //后端路由增加 //获取医生/患者的当前定位信息
+    Route::post('get_user_locations','CommonController@getUserLocationInfo');
+    //Models 封装新的表
+    <?php
+        namespace App\Models;
+        class UserLocation extends Model
+        {
+            protected $table = 'user_locations';
+            public $timestamps = false;
+        }
+    //Controllers增加逻辑
+    public function getUserLocationInfo(Request $request){
+        DB::beginTransaction();
+        try{
+            $Id = $request->input('id');
+            $user_lat = $request->input('user_lat');
+            $user_lng = $request->input('user_lng');
+            $user_city = $request->input('user_city');
+            $user_identity = $request->input('identity');
+            $date = time();
+
+            if(!$user_city){
+                DB::rollBack();
+                return \Response::error('当前定位城市信息丢失');
+            }
+            if($user_identity == 0){
+                DB::rollBack();
+                return \Response::error('当前用户为游客不记录信息');
+            }else if($user_identity == 1){
+                //医生逻辑 ????必须是已经通过审核的医生才会记录 提高有效信息率 //前端传过来的身份是否符合我们查询的身份
+                $isdoctor = Doctor::where(['status'=>1,'id'=>$Id])->get()->toArray();
+                $locationInfo = [
+                    'able_id'=>$isdoctor[0]['id'],
+                    'able_type'=>isset($isdoctor[0]['id']) ? $user_identity : '',
+                    'user_lat'=>$user_lat,
+                    'user_lng'=>$user_lng,
+                    'user_loaction_city'=>$user_city,
+                    'created_at'=> $date,
+                ];
+                if(!$locationInfo['able_type']){
+                    DB::rollBack();
+                    return \Response::error('当前用户传入信息不符合');
+                }else{
+                    UserLocation::create($locationInfo);
+                }
+            }else if($user_identity == 2){
+                //患者逻辑
+                $ispatient = Patient::where('id',$Id)->get()->toArray();
+                $locationInfo = [
+                    'able_id'=>$ispatient[0]['id'],
+                    'able_type'=>isset($ispatient[0]['id']) ? $user_identity : '',
+                    'user_lat'=>$user_lat,
+                    'user_lng'=>$user_lng,
+                    'user_loaction_city'=>$user_city,
+                    'created_at'=> $date,
+                ];
+                if(!$locationInfo['able_type']){
+                    DB::rollBack();
+                    return \Response::error('当前用户传入信息不符合');
+                }else{
+                    UserLocation::create($locationInfo);
+                }
+            }
+            DB::commit();
+            return \Response::success();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return \Response::error($e->getMessage());
+        }
+    }
