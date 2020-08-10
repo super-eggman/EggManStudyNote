@@ -1,0 +1,253 @@
+# 技术栈学习方向资料
+
+http://blog.itpub.net/69901074/viewspace-2673556/
+想拿到BAT的前端开发岗offer，并没有想象中的那么难!
+
+https://www.php.cn/course/type/3.html
+学习网站
+
+https://www.jianshu.com/p/e0fec11d7f7f
+web大前端面试——浏览器、网络和安全
+
+https://github.com/0voice/interview_internal_reference#9
+BAT面试学习资料
+
+fanrenyi.com
+学习网站
+
+http://www.muyiy.cn/question/frame/40.html
+前端进阶题(非常好的网站)
+
+https://developer.mozilla.org/zh-CN/docs/Web/API/History
+H5新特性文档
+
+
+# 性能优化资料
+
+https://blog.csdn.net/weixin_33836223/article/details/91910947
+Steve Souders 高性能网站建设指南14条提升网站页面速度的最佳实践（1）
+
+https://www.cnblogs.com/qidh/p/11455062.html
+前端web性能优化
+
+https://blog.csdn.net/mahoking/article/details/51472697
+web前端性能优化总结
+
+https://www.jianshu.com/p/227cee9c8d15
+一文读懂http缓存（超详细）
+
+https://www.cnblogs.com/qingmiaokeji/p/13026208.html
+前后端分离项目安全漏洞修复总结
+
+https://www.freebuf.com/articles/web/185654.html
+前端安全系列（一）：如何防止XSS攻击？
+
+https://segmentfault.com/a/1190000017085881?utm_source=sf-related
+程序员练级攻略（2018）：前端性能优化和框架
+
+# html网站资料
+
+https://www.cnblogs.com/yuanqisheng/p/12242459.html
+html基础知识-行内元素与块级元素
+
+https://blog.csdn.net/qq_42072733/article/details/81212017
+Bootstrap简单网页制作
+
+https://www.cnblogs.com/wolf-sun/p/5819803.html
+[Html5]sessionStorage和localStorage的区别
+
+https://blog.csdn.net/museions/article/details/80870190
+html设置http缓存代码
+
+# 小程序
+
+## 微信小程序
+https://blog.csdn.net/milugloomy/article/details/102609414
+微信小程序实现store功能
+
+# Npm
+
+windows
+1.下载安装：https://github.com/coreybutler/nvm-windows/releases/download/1.1.6/nvm-setup.zip
+2.常用命令
+#设置node为淘宝的镜像
+nvm node_mirror http://npm.taobao.org/mirrors/node/
+
+#设置npm为淘宝的镜像
+nvm npm_mirror https://npm.taobao.org/mirrors/npm/
+
+#列出远端可以安装的node版本
+nvm list available
+
+#安装某一版本node
+nvm install v8.1.3
+
+#本地使用某一版本node
+nvm use v8.1.3
+
+#列出本地安装的node版本
+nvm list
+
+参考来源：
+http://www.jianshu.com/p/8671e439a811
+
+解决 node-sass 安装时.node文件为国外镜像下载不成功问题
+npm install -g mirror-config-china --registry=http://registry.npm.taobao.org
+npm install node-sass
+
+sass-loader报错 Module build failed this.getResolve is not a function
+其实很简单 只是 咱们的 sass-loader 的版本太高了 适当降低即可
+
+## 打包组件发布npm包遇到的问题
+https://blog.csdn.net/lujinpt/article/details/105577281
+创建vue组件库并发布到npm
+
+https://www.cnblogs.com/suoni/p/11717922.html
+基于vue组件，发布npm包
+
+https://www.jianshu.com/p/24d2e295d12d
+从零开始发布npm包
+
+https://www.cnblogs.com/yalong/p/10388384.html
+从零开始开发一个vue组件打包并发布到npm (把vue组件打包成一个可以直接引用的js文件)
+
+https://www.jianshu.com/p/cfd4a7a4f5ac
+[解决]npm ERR! publish Failed PUT 403
+
+https://blog.csdn.net/weixin_38023551/article/details/78016795
+npm 权限问题 报错4048
+
+npm ERR! 403 Forbidden you must verify your email before publishing a new package
+我遇到这个问题,是在运行npm publish命令后出现的,出现的主要原因在于我没有在邮件里面点击链接,做确认关联操作引起的
+
+https://www.cnblogs.com/rope/p/11634160.html
+创建一个自己的Vue UI组件库，并将它发布在npm上
+
+## gitHub本地
+https://blog.csdn.net/xqhys/article/details/98113227
+如何在github上传本地项目代码（新手使用）
+
+# Vue
+
+## VueX
+https://www.cnblogs.com/this-xiaoming/p/9404116.html
+vuex配置
+
+https://blog.csdn.net/qq_28223305/article/details/80967168
+getters 配置 需要export default {status} 返回状态
+
+https://www.jianshu.com/p/2e5973fe1223
+vuex是什么
+
+## Vue杂项
+https://www.jianshu.com/p/182fe3b69071
+VUE判断当前设备是PC还是移动端
+
+https://blog.csdn.net/kikikiuu/article/details/105108508
+关于vue项目的seo问题及解决方案
+
+https://blog.csdn.net/chjj0904/article/details/79388438?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1
+前后端分离之SEO优化--------以vue为例
+
+https://cloud.tencent.com/developer/article/1611488
+vue中动态化的按需使用keep-alive
+
+https://zhuanlan.zhihu.com/p/35280019
+合格前端系列第十一弹-初探 Nuxt.js 秘密花园
+
+https://www.jianshu.com/p/5e13bc2eb97c
+vue-cli3快速创建项目
+
+https://www.jianshu.com/p/b358a91bdf2d
+vue.config.js 配置
+
+https://www.cnblogs.com/jiajialove/p/11327945.html
+Vue中computed和watch的区别
+vue中computed的用法 ，computed与watch的区别
+
+
+# Css
+
+https://www.jianshu.com/p/e2e0e7f918cc
+scss
+
+http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
+css gird 布局
+
+http://css-tricks.neatbang.com/loading/#loading-5
+CSS Tricks 动画
+
+https://segmentfault.com/a/1190000012655551
+CSS3+JS实现静态圆形进度条【清晰、易懂】
+
+# JavaScript
+
+https://www.jianshu.com/p/f656edf0dda1
+操作数组高阶函数用法（部分）
+
+https://blog.csdn.net/qq_35366269/article/details/99291224
+JS中string数组和number数组之间快速互转
+
+https://segmentfault.com/a/1190000012052241
+关于JS数组API的总结
+
+https://blog.csdn.net/xiaotao_css/article/details/72782416?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase
+JS高级---原型链(js三座大山)
+
+https://blog.csdn.net/The_X_One/article/details/83584019
+js中的map(parseInt)问题
+
+# 工具类网站
+
+https://tool.lu/timestamp
+时间戳在线工具
+
+# NodeJs
+
+https://www.cnblogs.com/kusaki/p/11396997.html
+使用nodeJS创建API接口，连接mysql数据库(新手向简易版)
+
+# APP安卓开发
+
+https://www.androiddevtools.cn/
+
+vue-jsBridge
+vue项目中使用jsBridge技术和原生APP通信
+
+android jsBridge库 ios jsBridge库
+>>> 在vue中使用插件
+import Vue from 'vue'
+import JsBridge form 'jsBridge-plugin'
+
+Vue.use(JsBridge);
+
+https://github.com/drkingwater/JsBridge
+web和原生app交互简单封装
+
+https://www.cnblogs.com/appuploader/p/12035683.html
+如何上架一个iOS APP（2020年最新版教程）
+
+## flutter
+https://blog.csdn.net/DeckeDeng/article/details/84991937?utm_medium=distribute.pc_relevant_right.none-task-blog-BlogCommendFromMachineLearnPai2-8.nonecase&depth_1-utm_source=distribute.pc_relevant_right.none-task-blog-BlogCommendFromMachineLearnPai2-8.nonecase
+flutter与原生activity 交互 数据传递（一）
+
+https://github.com/alibaba/flutter-go
+flutter 开发者帮助 APP，包含 flutter 常用 140+ 组件的demo 演示与中文文档
+
+# Git
+
+https://blog.csdn.net/qq_39276448/article/details/89884650
+git日常操作
+
+export newBranch="liuxin"
+export baseBranchOrigin="origin" baseBranchName="develop"
+git fetch $baseBranchOrigin $baseBranchName
+git checkout -b $newBranch $baseBranchOrigin/$baseBranchName
+#创建远端B分支
+git push origin $newBranch
+#设置跟踪分支
+git branch --set-upstream-to=origin/$newBranch
+
+//创建分支不成功时
+git fetch
+

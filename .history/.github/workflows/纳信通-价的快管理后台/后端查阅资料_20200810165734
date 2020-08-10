@@ -1,0 +1,117 @@
+# 学习网站&&论坛
+
+https://blog.csdn.net/liuxin_0725
+liuxin_0725的专栏
+
+https://blog.csdn.net/Y0Q2T57s/article/details/80682013?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase
+真实面试经历
+
+# 协议
+
+https://blog.csdn.net/shawei_/article/details/81775504
+TCP 滑动窗口/快速重传机制
+
+https://blog.csdn.net/u012813201/article/details/70210812
+HTTP请求的几种类型
+
+# php
+
+https://github.com/threadshare/php
+github php修行之路
+
+https://learnku.com/docs/laravel/6.x/database/5170
+Laravel 6 中文文档
+
+https://www.cnblogs.com/chenhaoyu/p/10731090.html
+消息队列详解
+
+https://www.cnblogs.com/xibuhaohao/p/10910947.html
+B树的旋转
+
+https://blog.csdn.net/qq_35641923/article/details/79174555
+laravel request中rules规则大全
+
+https://blog.csdn.net/qq_41345773/article/details/92066554
+HashMap底层实现和原理（源码解析）
+
+https://blog.csdn.net/hello_sgw/article/details/73724667
+PHP常见9大缓存
+
+http://www.ptbird.cn/php-two-dimensional-array-diff.html
+二维数组取差集操作方法
+
+https://blog.csdn.net/m_nanle_xiaobudiu/article/details/80955723
+PHP 项目中缓存的多种应用实现
+
+https://www.cnblogs.com/lhat/p/5527033.html
+php数据缓存
+
+https://wenda.workerman.net/article/124
+php终极数据缓存，比redis、GlobalData等快200倍以上，极致性能 (不适用于分布式)
+
+php 分页函数
+
+https://blog.csdn.net/u010071211/article/details/95091904
+bcmath相关函数使用
+
+# Java
+
+https://blog.csdn.net/My_name_is_ZwZ/article/details/80048056
+关于Java中super的应用
+
+# 嵌入式开发(单片机) 基于C51 C 
+
+https://blog.csdn.net/HowieXue/article/details/76696316?utm_source=blogxgwz8
+嵌入式学习中较好的练手项目和课题整理（附代码资料、学习视频和嵌入式学习规划）
+
+http://www.51hei.com/bbs/dpj-154635-1.html
+智能垃圾桶
+
+http://www.51hei.com/bbs/mcu-xuexi-1.html
+单片机论坛
+
+
+# MySQl
+
+https://blog.csdn.net/Saintyyu/article/details/91269087
+MySQL常见的七种锁详细介绍
+
+https://blog.csdn.net/zhou920786312/article/details/83857264
+倒排索引原理和实现
+
+Update语句
+Update 表名称 set 列名称 = 新值 where 列名称 = 某值
+
+https://blog.csdn.net/ty497122758/article/details/78980921
+数据库分区分片(Shards)技术概览
+
+cnblogs.com/xrq730/p/11039384.html
+Sql Or NoSql，看完这一篇你就懂了
+
+https://www.cnblogs.com/hyd1213126/p/5828937.html
+sql-索引的作用(超详细)
+
+https://www.jianshu.com/p/c82148473235
+MySQL索引
+
+# Redis
+
+https://blog.csdn.net/liqingtx/article/details/60330555
+超强、超详细Redis入门教程
+
+https://www.jianshu.com/p/736a1d71eaca
+Redis五种数据结构
+
+MySQL查询优化
+
+https://baijiahao.baidu.com/s?id=1660009541007805174&wfr=spider&for=pc
+搞懂这些Redis知识点
+
+# 算法
+
+递归
+
+https://blog.csdn.net/JAck_chen0309/article/details/105268976
+B+树
+
+

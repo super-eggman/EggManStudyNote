@@ -1,0 +1,362 @@
+vue 2.x
+
+http://doc.liangxinghua.com/vue-family/5.html //某博主的vue博客
+
+# vue-cli
+基于vuecli开始创建vue项目
+npm install -g @vue/cli
+
+//安装完成后创建一个项目，vue ui为图形化构建，相对简单（推荐）
+vue create my-project
+
+# Axios
+
+Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中(Axios是ajax的一个封装)
+
+
+# vue-router
+https://juejin.im/post/6844903589123457031
+
+1 hash路由
+2.hash路由的升级
+3.H5 History路由
+
+1.hash路由一个明显的标志是带有#,我们主要是通过监听url中的hash变化来进行路由
+
+跳转。（vue-cli起的项目就有这个,有办法去掉这个#,如果不想要这种默认的hash模式
+
+，可以用路由的history模式，这种模式充分的利用history.pushState API来完成URL
+
+跳转而无需重新加载页面,https://segmentfault.com/a/1190000015844765）
+
+hash的优势就是兼容性更好,在老版IE中都有运行,问题在于url中一直存在#不够美观,
+
+而且hash路由更像是Hack而非标准,相信随着发展更加标准化的History API会逐步蚕食
+
+掉hash路由的市场。
+
+1.2 实现路由hash储存与执行
+
+我们用Class关键字初始化一个路由.
+class Routers {
+  constructor() {
+    // 以键值对的形式储存路由
+    this.routes = {};
+    // 当前路由的URL
+    this.currentUrl = '';
+  }
+}
+
+将路由的hash以及对应的callback函数储存
+触发路由hash变化后,执行对应的callback函数
+class Routers {
+  constructor() {
+    this.routes = {};
+    this.currentUrl = '';
+  }
+  // 将path路径与对应的callback函数储存
+  route(path, callback) {
+    this.routes[path] = callback || function() {};
+  }
+  // 刷新
+  refresh() {
+    // 获取当前URL中的hash路径
+    this.currentUrl = location.hash.slice(1) || '/';
+    // 执行当前hash路径的callback函数
+    this.routes[this.currentUrl]();
+  }
+}
+
+监听对应事件那么我们只需要在实例化Class的时候监听上面的事件即可.
+class Routers {
+  constructor() {
+    this.routes = {};
+    this.currentUrl = '';
+    this.refresh = this.refresh.bind(this);
+    window.addEventListener('load', this.refresh, false);
+    window.addEventListener('hashchange', this.refresh, false);
+  }
+
+  route(path, callback) {
+    this.routes[path] = callback || function() {};
+  }
+
+  refresh() {
+    this.currentUrl = location.hash.slice(1) || '/';
+    this.routes[this.currentUrl]();
+  }
+}
+
+2.1 实现后退功能 
+我们在需要创建一个数组history来储存过往的hash路由例如/blue,并且创建一个指针
+
+currentIndex来随着后退和前进功能移动来指向不同的hash路由。
+class Routers {
+  constructor() {
+    // 储存hash与callback键值对
+    this.routes = {};
+    // 当前hash
+    this.currentUrl = '';
+    // 记录出现过的hash
+    this.history = [];
+    // 作为指针,默认指向this.history的末尾,根据后退前进指向history中不同的
+
+hash
+    this.currentIndex = this.history.length - 1;
+    this.refresh = this.refresh.bind(this);
+    this.backOff = this.backOff.bind(this);
+    window.addEventListener('load', this.refresh, false);
+    window.addEventListener('hashchange', this.refresh, false);
+  }
+
+  route(path, callback) {
+    this.routes[path] = callback || function() {};
+  }
+
+  refresh() {
+    this.currentUrl = location.hash.slice(1) || '/';
+    // 将当前hash路由推入数组储存
+    this.history.push(this.currentUrl);
+    // 指针向前移动
+    this.currentIndex++;
+    this.routes[this.currentUrl]();
+  }
+  // 后退功能
+  backOff() {
+    // 如果指针小于0的话就不存在对应hash路由了,因此锁定指针为0即可
+    this.currentIndex <= 0 ? (this.currentIndex = 0) : (this.currentIndex = this.currentIndex - 1);
+    // 随着后退,location.hash也应该随之变化
+    location.hash = `#${this.history[this.currentIndex]}`;
+    // 执行指针目前指向hash路由对应的callback
+    this.routes[this.history[this.currentIndex]]();
+  }
+}
+
+我们看起来实现的不错,可是出现了Bug,在后退的时候我们往往需要点击两下。
+class Routers {
+  constructor() {
+    // 储存hash与callback键值对
+    this.routes = {};
+    // 当前hash
+    this.currentUrl = '';
+    // 记录出现过的hash
+    this.history = [];
+    // 作为指针,默认指向this.history的末尾,根据后退前进指向history中不同的
+
+hash
+    this.currentIndex = this.history.length - 1;
+    this.refresh = this.refresh.bind(this);
+    this.backOff = this.backOff.bind(this);
+    // 默认不是后退操作
+    this.isBack = false;
+    window.addEventListener('load', this.refresh, false);
+    window.addEventListener('hashchange', this.refresh, false);
+  }
+
+  route(path, callback) {
+    this.routes[path] = callback || function() {};
+  }
+
+  refresh() {
+    this.currentUrl = location.hash.slice(1) || '/';
+    if (!this.isBack) {
+      // 如果不是后退操作,且当前指针小于数组总长度,直接截取指针之前的部分储
+
+存下来
+      // 此操作来避免当点击后退按钮之后,再进行正常跳转,指针会停留在原地,而数
+
+组添加新hash路由
+      // 避免再次造成指针的不匹配,我们直接截取指针之前的数组
+      // 此操作同时与浏览器自带后退功能的行为保持一致
+      if (this.currentIndex < this.history.length - 1)
+        this.history = this.history.slice(0, this.currentIndex + 1);
+      this.history.push(this.currentUrl);
+      this.currentIndex++;
+    }
+    this.routes[this.currentUrl]();
+    console.log('指针:', this.currentIndex, 'history:', this.history);
+    this.isBack = false;
+  }
+  // 后退功能
+  backOff() {
+    // 后退操作设置为true
+    this.isBack = true;
+    this.currentIndex <= 0 ? (this.currentIndex = 0) : (this.currentIndex = this.currentIndex - 1);
+    location.hash = `#${this.history[this.currentIndex]}`;
+    this.routes[this.history[this.currentIndex]]();
+  }
+}
+
+hash路由不会导致重定向，在hybrid app中打包html，js到app内的时候非常有用.
+vue-router 重定向是带指 router中配置redirect来实现的
+重定向应用场景:开发中有时候我们虽然设置的路径不一致，但是我们希望跳转到同一个页面，或者说是打开同一个组件。这时候我们就用到了路由的重新定向redirect参数
+重定向时传递参数和普通的params路由传递参数是一样的形式
+
+路由钩子-路由守卫概念
+
+全局
+// 全局路由拦截-进入页面前执行
+router.beforeEach((to, from, next) => {
+    // 这里可以加入全局登陆判断
+    // 继续执行
+    next();
+});
+
+// 全局后置钩子-常用于结束动画等
+router.afterEach(() => {
+    //不接受next
+});
+
+单个在路由中配置的钩子参数
+{
+    path:'/home/one', // 子页面1
+        component: One,
+        // 路由内钩子
+        beforeEnter: (to, from, next) => {
+        console.log('进入前执行');
+            next();
+        }
+}
+
+页面中使用的路由钩子
+beforeRouteEnter:进入页面前调用
+beforeRouteUpdate:页面路由改变时调用,一般需要带参数
+beforeRouteLeave:离开页面调用
+
+// 进入页面前调用
+beforeRouteEnter(to, from, next) {
+    console.log('进入enter路由钩子')
+    next()
+},
+// 离开页面调用
+beforeRouteLeave(to,from, next){
+    console.log('进入leave路由钩子')
+    next()
+},
+// 页面路由改变时调用
+beforeRouteUpdate(to, from, next) {
+    console.log('进入update路由钩子')
+    console.log(to.params.id)
+    next()
+}
+每个钩子方法接受是哪个参数 to:route 即将要进入的目标 from:route 当前导航即将离开的目标 next:function 继续执行的函数
+
+路由的懒加载模式 三种写法
+1 component: (resolve) => require(['@/components/One'], resolve)
+2 component: () => import('@/components/Two')
+3 components: r => require.ensure([], () => r(require('@/components/Three')), 'group-home')
+常用第二种
+第三种中，’group-home’是把组件按组分块打包, 可以将多个组件放入这个组中，在打包的时候Webpack会将相同 chunk 下的所有异步模块打包到一个异步块里面。
+
+
+# vuex 全局状态管理
+简单来说，就是对Vue的应用中多个组件的共享状态进行集中式的管理(读/写)
+
+简单示例
+// 引入vue
+import Vue from 'vue'
+// 引入vuex
+import Vuex from 'vuex'
+
+// 使用vuex
+Vue.use(Vuex)
+
+// 1、state：创建初始化状态
+const state = {
+    // 放置初始状态
+    count: 1
+}
+
+// 2、mutations：创建改变状态的方法
+const mutations = {
+    // 状态变更函数-一般大写
+    ADD (state, n) {
+        state.count += n;
+    }
+}
+
+// 3、getters：提供外部获取state
+const getters = {
+    count: function(state){
+        return state.count;
+    }
+}
+
+// 4、actions：创建驱动方法改变mutations
+const actions ={
+    // 触发mutations中相应的方法-一般小写
+    add ({commit}, data) {
+        commit('ADD', data)
+    }
+}
+
+// 5、全部注入Store中
+const store = new Vuex.Store({
+    state,
+    mutations,
+    getters,
+    actions
+});
+
+// 6、输出store
+export default store;
+
+state，驱动应用的数据源；
+数据源就是组件里面的data
+
+view，以声明方式将 state 映射到视图；
+声明方式：就比如说上面例子中的 {{ClickCount}} ，数据就可以显示出来。
+
+actions，响应在 view 上的用户输入导致的状态变化。
+actions说白了就是多个函数。
+
+Vuex的核心概念和API
+
+先把概念拿出来，看一遍就可以了，主要理解实例中下面这些对象是如何运作的。
+https://blog.csdn.net/qq_41647999/article/details/85274396
+
+流程：View -> Actions -> Mutations -> State -> View
+
+1.state
+    vuex状态管理的对象 他应该是唯一的 const state = { xxx:initValue }
+2.mutations
+    包含多个直接更新state的方法(回调函数)的对象
+    谁来触发:action中的commit
+    只能写同步 不能异步
+    const mutations = {
+        yyy(state,{data1}){
+            //更新state某个属性
+        }
+    }
+3.actions
+    包含多个事件的回调函数
+    通过执行commit()中来触发mutation的调用 间接更新status
+    谁来触发 组件中的$store,dispatch('action 名称',data)
+    可以包含异步代码(axios)
+    const actions = {
+        zzz({commit,state},data){
+            commit('yyy',{data1})
+        }
+    }
+4.getter
+    包含多个计算属性(get)的对象(也就是说,getters是用来放state里面的变量的计算属性的)
+    谁来读取组件中$store.getters.xxx
+    const getters = {
+        mmm(state){
+            return ...
+        }
+    }
+    (应该同项目中的$store.state.xxxx)
+5.modules
+    包含多哥module
+    module是一个store的配置对象
+    与一个组件(包含共享数据)对应
+
+ 流程详解
+① 在组件（页面）中，通过dispatch()或mapActions()这个函数分发给actions的函数去处理。
+
+② actions的函数可以与后台交互，也可以通过 commit() 提交给mutations去处理。
+
+③ mutations 可以直接与devtool（如本地存储工具 → 在实例代码中的utils里的storageUtils.js）交互与直接更新state（数据状态）。
+
+④ 如果有计算属性（get函数写在getters里面），则状态通过getters的$store.getters()或mapGetters()来更新组件；反之就通过$store.state()或者mapState()的方式来更新组件。

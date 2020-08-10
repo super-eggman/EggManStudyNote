@@ -1,0 +1,39 @@
+//前端  FLutter Drat java原生
+    //项目init 
+    //学习资料
+    https://flutterchina.club/ flutter中文网
+    https://www.jianshu.com/p/41e7231e5ce4 混合app开发--flutter开发之路（1）：从零搭建一个可运行demo
+
+    //原生安卓app壳子开发
+    jdk版本:jdk-14.0.1_windows-x64_bin.exe 下载地址:https://www.oracle.com/java/technologies/javase-jdk14-downloads.html
+    jdk按照默认路径安装c盘 java系统环境配置 JAVA_HOME jdk路径 PATH ;%JAVA_HOME%\bin;
+    验证安装是否成功 javac -version;
+
+    //Android Studio 模拟器安装位置更改
+    
+    Android Studio修改模拟器AVD和SDK(SDK does not contain any platforms) 默认路径的更改方法
+    https://blog.csdn.net/z17848227439/article/details/104081758/
+
+    //Android Studio 汉化
+    https://blog.csdn.net/qq_33431249/article/details/80698840
+    
+    //【Flutter】 第一章：安装和配置
+    http://ask.android-studio.org/?/article/130
+
+    //Android Studio 项目文件介绍
+    https://blog.csdn.net/a40850273/article/details/81699226
+
+    //Android开发问题之Emulator: Warning: Quick Boot / Snapshots not supported on this machine. A CPU with E...
+    1.bios 设置 inter 虚拟技术 enable   在Ad啥啥啥的下面有个 inter 啥啥 tech的选项 打开
+    2.检查Intel x86 Emulator Accelerator(HAXM installer)是否安装，如果没安装就安装上。
+    https://www.jianshu.com/p/624a6b40c858
+
+    //Android Studio设置国内镜像网站
+    https://www.jianshu.com/p/0936af70cda3
+
+
+
+    //填坑
+    命令行执行flutter doctor无响应原因追踪及解决 https://www.jianshu.com/p/898faadf1140
+
+//后端 php Laravel Swoole redis
